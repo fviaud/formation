@@ -1,4 +1,4 @@
-#Prerequis outils 
+--> Prerequis outils 
 https://mobaxterm.mobatek.net/download.html
 https://www.virtualbox.org/
 https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/
@@ -11,28 +11,42 @@ https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/
 	images officielles des CD ou DVD de la distribution stable
 	DVD amd64
 	
-# Ajout du dvd1 debian
+--> Ajout du dvd1 debian
 su -
 apt-get install sudo
 adduser dev sudo
 ! Ejecter le disque iso 
 reboot
  
-#Add reseau privé hote on virtualbox
+--> Add reseau privé hote on virtualbox
 sudo nano etc/network/interfaces
 
-#Ajouter les lignes ci-dessous
+--> Ajouter les lignes ci-dessous
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface (NAT to access internet)
+auto enp0s3
+iface enp0s3 inet dhcp
+
+# The secondary network interface (Virtual Host)
 auto enp0s8
 iface enp0s8 inet static
 address 192.168.56.2
 netmask 255.255.255.0
 
 
-#Verify state of network
-ip address show
 
+
+--> Verify state of network
+ip a
+
+--> Add debian repositories
 sudo nano /etc/apt/sources.list
-#Ajouter les lignes ci-dessous
+--> Ajouter les lignes ci-dessous
 ------------------------------------------------
 # Debian Buster, dépôt principal
 deb http://deb.debian.org/debian/ buster main
